@@ -5,15 +5,15 @@ type list struct {
 	tail *listItem
 }
 
-func (l *list) append(item *listItem) {
+func (l *list) prepend(item *listItem) {
 	if l.head == nil {
 		l.head = item
 		l.tail = item
 		return
 	}
 
-	l.tail.append(item)
-	l.tail = item
+	l.head.prepend(item)
+	l.head = item
 }
 
 func (l *list) update(item *listItem) {
@@ -35,19 +35,22 @@ func (l *list) update(item *listItem) {
 
 	l.head = item
 	l.head.prev = nil
+}
 
-	//
-	//item.append(l.head)
-	//l.head = item
-	//
-	//if l.head == nil {
-	//	l.head = item
-	//	l.tail = item
-	//	return
-	//}
-	//
-	//l.tail.append(item)
-	//l.tail = item
+func (l *list) pop() (item *listItem) {
+	if l.head == nil {
+		return
+	}
+
+	item = l.tail
+	if l.head == l.tail {
+		l.head = nil
+		l.tail = nil
+		return
+	}
+
+	l.tail = item.prev
+	return
 }
 
 type listItem struct {
@@ -55,4 +58,9 @@ type listItem struct {
 	prev *listItem
 	key  string
 	val  interface{}
+}
+
+func (item *listItem) prepend(item2 *listItem) {
+	item.prev = item2
+	item2.next = item
 }
