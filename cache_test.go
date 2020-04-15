@@ -3,6 +3,7 @@ package gocache
 import (
 	"fmt"
 	"math/rand"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -26,13 +27,24 @@ func TestCache(t *testing.T) {
 	}
 }
 
+func BenchmarkCache1(b *testing.B)       { benchmarkCache(1, b) }
+func BenchmarkCache10(b *testing.B)      { benchmarkCache(10, b) }
+func BenchmarkCache100(b *testing.B)     { benchmarkCache(100, b) }
+func BenchmarkCache1000(b *testing.B)    { benchmarkCache(1000, b) }
+func BenchmarkCache10000(b *testing.B)   { benchmarkCache(10000, b) }
+func BenchmarkCache100000(b *testing.B)  { benchmarkCache(100000, b) }
+func BenchmarkCache1000000(b *testing.B) { benchmarkCache(1000000, b) }
+
 func benchmarkCache(size int, b *testing.B) {
 	cache := New()
+	var m1, m2 runtime.MemStats
 
+	runtime.ReadMemStats(&m1)
 	for i := 0; i < size; i++ {
 		key := fmt.Sprintf("key%d", i)
 		cache.Set(key, i)
 	}
+	runtime.ReadMemStats(&m2)
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	val := rand.Intn(size)
@@ -43,12 +55,10 @@ func benchmarkCache(size int, b *testing.B) {
 	if val != got {
 		b.Fatalf("Get returned unexpected value - expected: %v, got: %v", val, got)
 	}
+
+	printMemoryUsage(&m1, &m2)
 }
 
-func BenchmarkCache1(b *testing.B) { benchmarkCache(1, b) }
-func BenchmarkCache10(b *testing.B) { benchmarkCache(10, b) }
-func BenchmarkCache100(b *testing.B) { benchmarkCache(100, b) }
-func BenchmarkCache1000(b *testing.B) { benchmarkCache(1000, b) }
-func BenchmarkCache10000(b *testing.B) { benchmarkCache(10000, b) }
-func BenchmarkCache100000(b *testing.B) { benchmarkCache(100000, b) }
-func BenchmarkCache1000000(b *testing.B) { benchmarkCache(1000000, b) }
+func printMemoryUsage(m1, m2 *runtime.MemStats) {
+	fmt.Println("Alloc:", m2.Alloc-m1.Alloc, "TotalAlloc:", m2.TotalAlloc-m1.TotalAlloc, "HeapAlloc:", m2.HeapAlloc-m1.HeapAlloc)
+}
