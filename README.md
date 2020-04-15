@@ -2,6 +2,19 @@
 
 Gocache is an in-memory cache implementation written in Go.
 
+## Table of Contents
+1. [TODOs](#todos)
+1. [Architectural decisions](#architectural-decisions)
+1. [Data structures & algorithms](#data-structures--algorithms)
+    1. [Non-limited cache (HashMap)](#non-limited-cache-hashmap)
+    1. [LRU cache (HashMap + LinkedList)](#lru-cache-hashmap--linkedlist)
+1. [Usage](#usage)
+    1. [Non-limited cache](#non-limited-cache)
+    1. [LRU cache](#lru-cache)
+1. [Benchmarking](#benchmarking)
+    1. [Time-cost - O(1)](#time-cost---o1)
+    1. [Memory footprint](#memory-footprint)    
+
 ### TODOs
 
 - [ ] Memory profiling + improvements.
@@ -16,16 +29,16 @@ Due to the non-existence of generics in Go, the `interface{}` was used instead, 
 
 ### Data structures & algorithms
 
-#### Unlimited cache
+#### Non-limited cache (HashMap)
 
-Unlimited cache that uses a HashMap (`map[string]interface{}`) under the hood.
+Non-limited cache that uses a HashMap (`map[string]interface{}`) under the hood.
 
 Time cost analysis:
 
 - Get (`O(1)`) = HashMap lookup (`O(1)`).
 - Set (`O(1)`) = HashMap insert (`O(1)`).
 
-#### With replacement cache
+#### LRU cache (HashMap + LinkedList)
 
 Limited (with [LRU replacement](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) cache
 that uses a HashMap(`map[string]interface{}`) and a doubly-linked list under the hood.
@@ -38,7 +51,7 @@ Time cost analysis:
 
 ### Usage
 
-#### Unlimited cache
+#### Non-limited cache
 
 Just initialize a new cache and start using it through the `Get` and `Set` methods.
 
@@ -60,7 +73,7 @@ func main() {
 }
 ```
 
-#### With replacement cache
+#### LRU cache
 
 Just initialize a new cache with an initial size and start using it through the `Get` and `Set` methods.
 
@@ -85,9 +98,9 @@ func main() {
 
 ### Benchmarking
 
-#### Time consumption - O(1)
+#### Time-cost - O(1)
 
-As you you can see on the attached benchmark logs, the lookup time cost of both implementations corresponds to O(1).
+As you you can see on the attached benchmark logs, the lookup time-cost of both implementations corresponds to O(1).
 
 ```
 BenchmarkCache1-8                 	1000000000	         0.000000 ns/op
