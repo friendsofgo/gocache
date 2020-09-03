@@ -1,3 +1,3 @@
-module github.com/friendsofgo/gocache
+module pkg.friendsofgo.tech/gocache
 
 go 1.13

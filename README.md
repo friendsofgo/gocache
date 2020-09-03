@@ -58,7 +58,7 @@ Just initialize a new cache and start using it through the `Get` and `Set` metho
 ```go
 package main
 
-import "github.com/friendsofgo/gocache"
+import "pkg.friendsofgo.tech/gocache"
 
 func main() {
 	key1, key2 := "key1", "key2"
@@ -80,7 +80,7 @@ Just initialize a new cache with an initial size and start using it through the 
 ```go
 package main
 
-import "github.com/friendsofgo/gocache"
+import "pkg.friendsofgo.tech/gocache"
 
 func main() {
 	key1, key2 := "key1", "key2"
