@@ -16,10 +16,10 @@ It requires Go v1.18+ due to the generics support.
 
 1. [TODOs](#todos)
 1. [Data structures & algorithms](#data-structures--algorithms)
-    1. [Non-limited cache (HashMap)](#non-limited-cache-hashmap)
+    1. [Boundless cache (HashMap)](#boundless-cache-hashmap)
     1. [LRU cache (HashMap + LinkedList)](#lru-cache-hashmap--linkedlist)
 1. [Usage](#usage)
-    1. [Non-limited cache](#non-limited-cache)
+    1. [Boundless cache](#boundless-cache)
     1. [LRU cache](#lru-cache)
 1. [Benchmarking](#benchmarking)
     1. [Time-cost - O(1)](#time-cost---o1)
@@ -32,7 +32,7 @@ It requires Go v1.18+ due to the generics support.
 
 ### Data structures & algorithms
 
-#### Non-limited cache (HashMap)
+#### Boundless cache (HashMap)
 
 Non-limited cache that uses a HashMap (`map[string]any`) under the hood.
 
@@ -54,7 +54,7 @@ Time cost analysis:
 
 ### Usage
 
-#### Non-limited cache
+#### Boundless
 
 Just initialize a new cache and start using it through the `Get` and `Set` methods.
 
@@ -67,7 +67,7 @@ func main() {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
 
-	cache := gocache.New[int]()
+	cache := gocache.NewBoundless[int]()
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -90,7 +90,7 @@ func main() {
 	val1, val2 := 1, 2
 	size := 1
 
-	cache := gocache.NewR[int](size)
+	cache := gocache.NewLRU[int](size)
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -113,27 +113,27 @@ BenchmarkCache1000-8              	1000000000	         0.000000 ns/op
 BenchmarkCache10000-8             	1000000000	         0.000000 ns/op
 BenchmarkCache100000-8            	1000000000	         0.000001 ns/op
 BenchmarkCache1000000-8           	1000000000	         0.000001 ns/op
-BenchmarkCacheR1x10-8             	1000000000	         0.000000 ns/op
-BenchmarkCacheR10x10-8            	1000000000	         0.000001 ns/op
-BenchmarkCacheR100x10-8           	1000000000	         0.000001 ns/op
-BenchmarkCacheR1000x10-8          	1000000000	         0.000000 ns/op
-BenchmarkCacheR10000x10-8         	1000000000	         0.000000 ns/op
-BenchmarkCacheR100000x10-8        	1000000000	         0.000000 ns/op
-BenchmarkCacheR1000000x10-8       	1000000000	         0.000001 ns/op
-BenchmarkCacheR1x1000-8           	1000000000	         0.000000 ns/op
-BenchmarkCacheR10x1000-8          	1000000000	         0.000001 ns/op
-BenchmarkCacheR100x1000-8         	1000000000	         0.000000 ns/op
-BenchmarkCacheR1000x1000-8        	1000000000	         0.000001 ns/op
-BenchmarkCacheR10000x1000-8       	1000000000	         0.000001 ns/op
-BenchmarkCacheR100000x1000-8      	1000000000	         0.000001 ns/op
-BenchmarkCacheR1000000x1000-8     	1000000000	         0.000001 ns/op
-BenchmarkCacheR1x100000-8         	1000000000	         0.000000 ns/op
-BenchmarkCacheR10x100000-8        	1000000000	         0.000000 ns/op
-BenchmarkCacheR100x100000-8       	1000000000	         0.000001 ns/op
-BenchmarkCacheR1000x100000-8      	1000000000	         0.000001 ns/op
-BenchmarkCacheR10000x100000-8     	1000000000	         0.000002 ns/op
-BenchmarkCacheR100000x100000-8    	1000000000	         0.000001 ns/op
-BenchmarkCacheR1000000x100000-8   	1000000000	         0.000001 ns/op
+BenchmarkLRU1x10-8             	1000000000	         0.000000 ns/op
+BenchmarkLRU10x10-8            	1000000000	         0.000001 ns/op
+BenchmarkLRU100x10-8           	1000000000	         0.000001 ns/op
+BenchmarkLRU1000x10-8          	1000000000	         0.000000 ns/op
+BenchmarkLRU10000x10-8         	1000000000	         0.000000 ns/op
+BenchmarkLRU100000x10-8        	1000000000	         0.000000 ns/op
+BenchmarkLRU1000000x10-8       	1000000000	         0.000001 ns/op
+BenchmarkLRU1x1000-8           	1000000000	         0.000000 ns/op
+BenchmarkLRU10x1000-8          	1000000000	         0.000001 ns/op
+BenchmarkLRU100x1000-8         	1000000000	         0.000000 ns/op
+BenchmarkLRU1000x1000-8        	1000000000	         0.000001 ns/op
+BenchmarkLRU10000x1000-8       	1000000000	         0.000001 ns/op
+BenchmarkLRU100000x1000-8      	1000000000	         0.000001 ns/op
+BenchmarkLRU1000000x1000-8     	1000000000	         0.000001 ns/op
+BenchmarkLRU1x100000-8         	1000000000	         0.000000 ns/op
+BenchmarkLRU10x100000-8        	1000000000	         0.000000 ns/op
+BenchmarkLRU100x100000-8       	1000000000	         0.000001 ns/op
+BenchmarkLRU1000x100000-8      	1000000000	         0.000001 ns/op
+BenchmarkLRU10000x100000-8     	1000000000	         0.000002 ns/op
+BenchmarkLRU100000x100000-8    	1000000000	         0.000001 ns/op
+BenchmarkLRU1000000x100000-8   	1000000000	         0.000001 ns/op
 ```
 
 #### Memory footprint

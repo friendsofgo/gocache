@@ -2,18 +2,18 @@ package gocache
 
 import "sync"
 
-type Cache[V any] struct {
+type Boundless[V any] struct {
 	sync.RWMutex
 	items map[string]V
 }
 
-func New[V any]() *Cache[V] {
-	return &Cache[V]{
+func NewBoundless[V any]() *Boundless[V] {
+	return &Boundless[V]{
 		items: make(map[string]V),
 	}
 }
 
-func (c *Cache[V]) Get(key string) V {
+func (c *Boundless[V]) Get(key string) V {
 	c.RLock()
 	defer c.RUnlock()
 
@@ -27,7 +27,7 @@ func (c *Cache[V]) Get(key string) V {
 	return item
 }
 
-func (c *Cache[V]) Set(key string, value V) {
+func (c *Boundless[V]) Set(key string, value V) {
 	c.Lock()
 	defer c.Unlock()
 

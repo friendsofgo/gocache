@@ -2,22 +2,22 @@ package gocache
 
 import "sync"
 
-type CacheR[V any] struct {
+type LRU[V any] struct {
 	sync.RWMutex
 	items map[string]*listItem[V]
 	cap   int
 	lru   *list[V]
 }
 
-func NewR[V any](cap int) *CacheR[V] {
-	return &CacheR[V]{
+func NewLRU[V any](cap int) *LRU[V] {
+	return &LRU[V]{
 		items: make(map[string]*listItem[V]),
 		cap:   cap,
 		lru:   new(list[V]),
 	}
 }
 
-func (c *CacheR[V]) Get(key string) V {
+func (c *LRU[V]) Get(key string) V {
 	c.RLock()
 	defer c.RUnlock()
 
@@ -33,7 +33,7 @@ func (c *CacheR[V]) Get(key string) V {
 	return item.val
 }
 
-func (c *CacheR[V]) Set(key string, val V) {
+func (c *LRU[V]) Set(key string, val V) {
 	c.Lock()
 	defer c.Unlock()
 
@@ -46,7 +46,7 @@ func (c *CacheR[V]) Set(key string, val V) {
 	c.items[key] = newItem
 }
 
-func (c *CacheR[V]) evict() {
+func (c *LRU[V]) evict() {
 	evicted := c.lru.pop()
 
 	if evicted != nil {

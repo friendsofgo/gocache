@@ -8,11 +8,11 @@ import (
 	"time"
 )
 
-func TestCache(t *testing.T) {
+func TestBoundless(t *testing.T) {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
 
-	cache := New[int]()
+	cache := NewBoundless[int]()
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -27,16 +27,16 @@ func TestCache(t *testing.T) {
 	}
 }
 
-func BenchmarkCache1(b *testing.B)       { benchmarkCache(1, b) }
-func BenchmarkCache10(b *testing.B)      { benchmarkCache(10, b) }
-func BenchmarkCache100(b *testing.B)     { benchmarkCache(100, b) }
-func BenchmarkCache1000(b *testing.B)    { benchmarkCache(1000, b) }
-func BenchmarkCache10000(b *testing.B)   { benchmarkCache(10000, b) }
-func BenchmarkCache100000(b *testing.B)  { benchmarkCache(100000, b) }
-func BenchmarkCache1000000(b *testing.B) { benchmarkCache(1000000, b) }
+func BenchmarkBoundless1(b *testing.B)       { benchmarkBoundless(1, b) }
+func BenchmarkBoundless10(b *testing.B)      { benchmarkBoundless(10, b) }
+func BenchmarkBoundless100(b *testing.B)     { benchmarkBoundless(100, b) }
+func BenchmarkBoundless1000(b *testing.B)    { benchmarkBoundless(1000, b) }
+func BenchmarkBoundless10000(b *testing.B)   { benchmarkBoundless(10000, b) }
+func BenchmarkBoundless100000(b *testing.B)  { benchmarkBoundless(100000, b) }
+func BenchmarkBoundless1000000(b *testing.B) { benchmarkBoundless(1000000, b) }
 
-func benchmarkCache(items int, b *testing.B) {
-	cache := New[int]()
+func benchmarkBoundless(items int, b *testing.B) {
+	cache := NewBoundless[int]()
 	var m1, m2 runtime.MemStats
 
 	runtime.ReadMemStats(&m1)
