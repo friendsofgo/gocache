@@ -1,5 +1,7 @@
 ## Gocache
 
+![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)
+
 Gocache is a **generic** in-memory cache implementation written in Go.
 
 It requires Go v1.18+ due to the generics support.
