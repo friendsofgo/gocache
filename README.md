@@ -1,12 +1,19 @@
 ## Gocache
 
-![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)
+[![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)](https://github.com/friendsofgo/gocache/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/friendsofgo/gocache)](https://goreportcard.com/report/github.com/friendsofgo/gocache)
+[![FriendsOfGo](https://img.shields.io/badge/powered%20by-Friends%20of%20Go-73D7E2.svg)](https://friendsofgo.tech)
+
+<p>
+<a href="https://www.buymeacoffee.com/friendsofgo" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: 100px !important;" ></a>
+</p>
 
 Gocache is a **generic** in-memory cache implementation written in Go.
 
 It requires Go v1.18+ due to the generics support.
 
 ## Table of Contents
+
 1. [TODOs](#todos)
 1. [Architectural decisions](#architectural-decisions)
 1. [Data structures & algorithms](#data-structures--algorithms)
@@ -17,12 +24,11 @@ It requires Go v1.18+ due to the generics support.
     1. [LRU cache](#lru-cache)
 1. [Benchmarking](#benchmarking)
     1. [Time-cost - O(1)](#time-cost---o1)
-    1. [Memory footprint](#memory-footprint)    
+    1. [Memory footprint](#memory-footprint)
 
 ### TODOs
 
 - [ ] Memory profiling + improvements.
-- [ ] Badges (+ code report + unit tests).
 - [ ] GoDocs.
 
 ### Data structures & algorithms
@@ -38,8 +44,8 @@ Time cost analysis:
 
 #### LRU cache (HashMap + LinkedList)
 
-Limited (with [LRU replacement](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) cache
-that uses a HashMap(`map[string]any`) and a doubly-linked list under the hood.
+Limited (with [LRU replacement](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU))
+cache that uses a HashMap(`map[string]any`) and a doubly-linked list under the hood.
 
 Time cost analysis:
 
@@ -83,7 +89,7 @@ import "pkg.friendsofgo.tech/gocache"
 func main() {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
-    size := 1
+	size := 1
 
 	cache := gocache.NewR[int](size)
 	cache.Set(key1, val1)
