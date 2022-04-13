@@ -23,7 +23,6 @@ It requires Go v1.18+ due to the generics support.
 
 - [ ] Memory profiling + improvements.
 - [ ] Badges (+ code report + unit tests).
-- [ ] Concurrent safety.
 - [ ] GoDocs.
 
 ### Data structures & algorithms

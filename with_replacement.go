@@ -1,6 +1,9 @@
 package gocache
 
+import "sync"
+
 type CacheR[V any] struct {
+	sync.RWMutex
 	items map[string]*listItem[V]
 	cap   int
 	lru   *list[V]
@@ -15,6 +18,9 @@ func NewR[V any](cap int) *CacheR[V] {
 }
 
 func (c *CacheR[V]) Get(key string) V {
+	c.RLock()
+	defer c.RUnlock()
+
 	var noop V
 
 	item, ok := c.items[key]
@@ -28,6 +34,9 @@ func (c *CacheR[V]) Get(key string) V {
 }
 
 func (c *CacheR[V]) Set(key string, val V) {
+	c.Lock()
+	defer c.Unlock()
+
 	if len(c.items) == c.cap {
 		c.evict()
 	}
