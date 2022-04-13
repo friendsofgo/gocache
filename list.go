@@ -1,11 +1,11 @@
 package gocache
 
-type list struct {
-	head *listItem
-	tail *listItem
+type list[V any] struct {
+	head *listItem[V]
+	tail *listItem[V]
 }
 
-func (l *list) prepend(item *listItem) {
+func (l *list[V]) prepend(item *listItem[V]) {
 	if l.head == nil {
 		l.head = item
 		l.tail = item
@@ -16,7 +16,7 @@ func (l *list) prepend(item *listItem) {
 	l.head = item
 }
 
-func (l *list) update(item *listItem) {
+func (l *list[V]) update(item *listItem[V]) {
 	if l.head == item {
 		return
 	}
@@ -37,7 +37,7 @@ func (l *list) update(item *listItem) {
 	l.head.prev = nil
 }
 
-func (l *list) pop() (item *listItem) {
+func (l *list[V]) pop() (item *listItem[V]) {
 	if l.head == nil {
 		return
 	}
@@ -53,14 +53,14 @@ func (l *list) pop() (item *listItem) {
 	return
 }
 
-type listItem struct {
-	next *listItem
-	prev *listItem
+type listItem[V any] struct {
+	next *listItem[V]
+	prev *listItem[V]
 	key  string
-	val  interface{}
+	val  V
 }
 
-func (item *listItem) prepend(item2 *listItem) {
+func (item *listItem[V]) prepend(item2 *listItem[V]) {
 	item.prev = item2
 	item2.next = item
 }

@@ -12,28 +12,28 @@ func TestCacheR(t *testing.T) {
 	key1, key2, key3, key4 := "key1", "key2", "key3", "key4"
 	val1, val2, val3, val4 := 1, 2, 3, 4
 
-	cache := NewR(2)
+	cache := NewR[int](2)
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 	cache.Set(key3, val3)
 	cache.Set(key4, val4)
 
 	got := cache.Get(key1)
-	if nil != got {
+	if 0 != got {
 		t.Fatalf("unexpected cache.Get - expected: %v, got: %v", nil, got)
 	}
 
 	got = cache.Get(key2)
-	if nil != got {
+	if 0 != got {
 		t.Fatalf("unexpected cache.Get - expected: %v, got: %v", nil, got)
 	}
 
-	got = cache.Get(key3).(int)
+	got = cache.Get(key3)
 	if val3 != got {
 		t.Fatalf("unexpected cache.Get - expected: %v, got: %v", val3, got)
 	}
 
-	got = cache.Get(key4).(int)
+	got = cache.Get(key4)
 	if val4 != got {
 		t.Fatalf("unexpected cache.Get - expected: %v, got: %v", val4, got)
 	}
@@ -64,7 +64,7 @@ func BenchmarkCacheR100000x100000(b *testing.B)  { benchmarkCacheR(100000, 10000
 func BenchmarkCacheR1000000x100000(b *testing.B) { benchmarkCacheR(1000000, 100000, b) }
 
 func benchmarkCacheR(items, size int, b *testing.B) {
-	cache := NewR(size)
+	cache := NewR[int](size)
 	var m1, m2 runtime.MemStats
 
 	runtime.ReadMemStats(&m1)
@@ -78,11 +78,11 @@ func benchmarkCacheR(items, size int, b *testing.B) {
 	val := rand.Intn(items)
 	key := fmt.Sprintf("key%d", val)
 
-	var expected interface{}
+	var expected int
 	if val >= items-size {
 		expected = val
 	} else {
-		expected = nil
+		expected = 0
 	}
 	b.ResetTimer()
 

@@ -4,7 +4,7 @@ import "testing"
 
 func TestList(t *testing.T) {
 	t.Run("given an empty list then head and tail are nil", func(t *testing.T) {
-		l := new(list)
+		l := new(list[int])
 
 		if nil != l.head {
 			t.Fatalf("unexpected list.head - expected: %v, got: %v", nil, l.head)
@@ -16,9 +16,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a single item list then and tail are the same item", func(t *testing.T) {
-		item1 := &listItem{key: "one"}
+		item1 := &listItem[int]{key: "one"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 
 		if item1 != l.head {
@@ -31,9 +31,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with two items then one corresponds to the head and the other one to the tail", func(t *testing.T) {
-		item1, item2 := &listItem{key: "one"}, &listItem{key: "two"}
+		item1, item2 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 
@@ -47,9 +47,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with three items then first one corresponds to the head and the last one to the tail", func(t *testing.T) {
-		item1, item2, item3 := &listItem{key: "one"}, &listItem{key: "two"}, &listItem{key: "three"}
+		item1, item2, item3 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}, &listItem[int]{key: "three"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 		l.prepend(item3)
@@ -64,9 +64,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a single item list then the update does nothing", func(t *testing.T) {
-		item1 := &listItem{key: "one"}
+		item1 := &listItem[int]{key: "one"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 
 		l.update(item1)
@@ -89,9 +89,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with two items then the update sets the second one as the head", func(t *testing.T) {
-		item1, item2 := &listItem{key: "one"}, &listItem{key: "two"}
+		item1, item2 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 
@@ -123,9 +123,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with three items then the update sets the second one as the head", func(t *testing.T) {
-		item1, item2, item3 := &listItem{key: "one"}, &listItem{key: "two"}, &listItem{key: "three"}
+		item1, item2, item3 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}, &listItem[int]{key: "three"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 		l.prepend(item3)
@@ -166,7 +166,7 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given an empty list then pop returns nil", func(t *testing.T) {
-		l := new(list)
+		l := new(list[int])
 
 		got := l.pop()
 		if nil != got {
@@ -183,9 +183,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a single item list then pop returns the item and the list is empty", func(t *testing.T) {
-		item1 := &listItem{key: "one"}
+		item1 := &listItem[int]{key: "one"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 
 		got := l.pop()
@@ -203,9 +203,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with two items then pop returns the last item and the list is a single one", func(t *testing.T) {
-		item1, item2 := &listItem{key: "one"}, &listItem{key: "two"}
+		item1, item2 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 
@@ -224,9 +224,9 @@ func TestList(t *testing.T) {
 	})
 
 	t.Run("given a list with three items then pop returns the last item and the list size is two", func(t *testing.T) {
-		item1, item2, item3 := &listItem{key: "one"}, &listItem{key: "two"}, &listItem{key: "three"}
+		item1, item2, item3 := &listItem[int]{key: "one"}, &listItem[int]{key: "two"}, &listItem[int]{key: "three"}
 
-		l := new(list)
+		l := new(list[int])
 		l.prepend(item1)
 		l.prepend(item2)
 		l.prepend(item3)

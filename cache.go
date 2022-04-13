@@ -1,24 +1,26 @@
 package gocache
 
-type Cache struct {
-	items map[string]interface{}
+type Cache[V any] struct {
+	items map[string]V
 }
 
-func New() *Cache {
-	return &Cache{
-		items: make(map[string]interface{}),
+func New[V any]() *Cache[V] {
+	return &Cache[V]{
+		items: make(map[string]V),
 	}
 }
 
-func (c *Cache) Get(key string) interface{} {
+func (c *Cache[V]) Get(key string) V {
+	var noop V
+
 	item, ok := c.items[key]
 	if !ok {
-		return nil
+		return noop
 	}
 
 	return item
 }
 
-func (c *Cache) Set(key string, value interface{}) {
+func (c *Cache[V]) Set(key string, value V) {
 	c.items[key] = value
 }
