@@ -1,6 +1,8 @@
 ## Gocache
 
-Gocache is an in-memory cache implementation written in Go.
+Gocache is a **generic** in-memory cache implementation written in Go.
+
+It requires Go v1.18+ due to the generics support.
 
 ## Table of Contents
 1. [TODOs](#todos)
@@ -20,18 +22,13 @@ Gocache is an in-memory cache implementation written in Go.
 - [ ] Memory profiling + improvements.
 - [ ] Badges (+ code report + unit tests).
 - [ ] Concurrent safety.
-- [ ] Scan parser method.
-
-### Architectural decisions
-
-Due to the non-existence of generics in Go, the `interface{}` was used instead, what forces us to use type casting
-(so reflection) on data fetches.
+- [ ] GoDocs.
 
 ### Data structures & algorithms
 
 #### Non-limited cache (HashMap)
 
-Non-limited cache that uses a HashMap (`map[string]interface{}`) under the hood.
+Non-limited cache that uses a HashMap (`map[string]any`) under the hood.
 
 Time cost analysis:
 
@@ -41,7 +38,7 @@ Time cost analysis:
 #### LRU cache (HashMap + LinkedList)
 
 Limited (with [LRU replacement](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) cache
-that uses a HashMap(`map[string]interface{}`) and a doubly-linked list under the hood.
+that uses a HashMap(`map[string]any`) and a doubly-linked list under the hood.
 
 Time cost analysis:
 
@@ -64,7 +61,7 @@ func main() {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
 
-	cache := gocache.New()
+	cache := gocache.New[int]()
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -87,7 +84,7 @@ func main() {
 	val1, val2 := 1, 2
     size := 1
 
-	cache := gocache.NewR(size)
+	cache := gocache.NewR[int](size)
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
