@@ -2,6 +2,10 @@ package gocache
 
 import "sync"
 
+// LRU is an in-memory cache implementation
+// that uses the Least Recently Used (LRU)
+// algorithm as replacement algorithm.
+// Safe for concurrency.
 type LRU[V any] struct {
 	sync.RWMutex
 	items map[string]*listItem[V]
@@ -9,6 +13,8 @@ type LRU[V any] struct {
 	lru   *list[V]
 }
 
+// NewLRU is a constructor method that initializes
+// a new LRU cache with a maximum capacity of cap.
 func NewLRU[V any](cap int) *LRU[V] {
 	return &LRU[V]{
 		items: make(map[string]*listItem[V]),
@@ -17,6 +23,8 @@ func NewLRU[V any](cap int) *LRU[V] {
 	}
 }
 
+// Get returns the element stored for the given
+// key or the zero value of the type V.
 func (c *LRU[V]) Get(key string) V {
 	c.RLock()
 	defer c.RUnlock()
@@ -33,6 +41,11 @@ func (c *LRU[V]) Get(key string) V {
 	return item.val
 }
 
+// Set updates the element stored for the given
+// key with the given value of the type V.
+// When the maximum capacity of the cache
+// is reached, then it evicts cache entries by
+// using the Least Recently Used (LRU) algorithm.
 func (c *LRU[V]) Set(key string, val V) {
 	c.Lock()
 	defer c.Unlock()

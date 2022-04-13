@@ -1,6 +1,7 @@
 ## Gocache
 
 [![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)](https://github.com/friendsofgo/gocache/actions)
+[![GoDoc](https://godoc.org/github.com/friendsofgo/gocache?status.svg)](https://godoc.org/github.com/friendsofgo/gocache)
 [![Go Report Card](https://goreportcard.com/badge/github.com/friendsofgo/gocache)](https://goreportcard.com/report/github.com/friendsofgo/gocache)
 [![FriendsOfGo](https://img.shields.io/badge/powered%20by-Friends%20of%20Go-73D7E2.svg)](https://friendsofgo.tech)
 
@@ -14,7 +15,6 @@ It requires Go v1.18+ due to the generics support.
 
 ## Table of Contents
 
-1. [TODOs](#todos)
 1. [Data structures & algorithms](#data-structures--algorithms)
     1. [Boundless cache (HashMap)](#boundless-cache-hashmap)
     1. [LRU cache (HashMap + LinkedList)](#lru-cache-hashmap--linkedlist)
@@ -24,11 +24,6 @@ It requires Go v1.18+ due to the generics support.
 1. [Benchmarking](#benchmarking)
     1. [Time-cost - O(1)](#time-cost---o1)
     1. [Memory footprint](#memory-footprint)
-
-### TODOs
-
-- [ ] Memory profiling + improvements.
-- [ ] GoDocs.
 
 ### Data structures & algorithms
 
