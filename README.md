@@ -15,7 +15,6 @@ It requires Go v1.18+ due to the generics support.
 ## Table of Contents
 
 1. [TODOs](#todos)
-1. [Architectural decisions](#architectural-decisions)
 1. [Data structures & algorithms](#data-structures--algorithms)
     1. [Non-limited cache (HashMap)](#non-limited-cache-hashmap)
     1. [LRU cache (HashMap + LinkedList)](#lru-cache-hashmap--linkedlist)
