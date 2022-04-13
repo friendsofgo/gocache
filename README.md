@@ -1,7 +1,7 @@
 ## Gocache
 
 [![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)](https://github.com/friendsofgo/gocache/actions)
-[![GoDoc](https://godoc.org/github.com/friendsofgo/gocache?status.svg)](https://godoc.org/github.com/friendsofgo/gocache)
+[![GoDoc](https://pkg.go.dev/badge/pkg.friendsofgo.tech/gocache?status.svg)](https://pkg.go.dev/pkg.friendsofgo.tech/gocache)
 [![Go Report Card](https://goreportcard.com/badge/github.com/friendsofgo/gocache)](https://goreportcard.com/report/github.com/friendsofgo/gocache)
 [![FriendsOfGo](https://img.shields.io/badge/powered%20by-Friends%20of%20Go-73D7E2.svg)](https://friendsofgo.tech)
 
