@@ -5,9 +5,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/friendsofgo/gocache)](https://goreportcard.com/report/github.com/friendsofgo/gocache)
 [![FriendsOfGo](https://img.shields.io/badge/powered%20by-Friends%20of%20Go-73D7E2.svg)](https://friendsofgo.tech)
 
-**gocache** is a *generic* in-memory cache implementation written in Go.
+**gocache** is a *generic*, *in-memory*, and *dependency-free* cache implementation written in Go.
 
-It requires Go v1.18+ due to the support for generics.
+It requires Go v1.20+.
 
 ## Table of Contents
 

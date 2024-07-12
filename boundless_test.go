@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"runtime"
 	"testing"
-	"time"
 )
 
 func TestBoundless(t *testing.T) {
@@ -46,7 +45,6 @@ func benchmarkBoundless(items int, b *testing.B) {
 	}
 	runtime.ReadMemStats(&m2)
 
-	rand.Seed(time.Now().UTC().UnixNano())
 	val := rand.Intn(items)
 	key := fmt.Sprintf("key%d", val)
 	b.ResetTimer()

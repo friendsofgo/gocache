@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"runtime"
 	"testing"
-	"time"
 )
 
 func TestLRU(t *testing.T) {
@@ -74,7 +73,6 @@ func benchmarkLRU(items, size int, b *testing.B) {
 	}
 	runtime.ReadMemStats(&m2)
 
-	rand.Seed(time.Now().UTC().UnixNano())
 	val := rand.Intn(items)
 	key := fmt.Sprintf("key%d", val)
 
