@@ -12,7 +12,7 @@ func TestBoundless(t *testing.T) {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
 
-	cache := NewBoundless[int]()
+	cache := NewBoundless[string, int]()
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -36,7 +36,7 @@ func BenchmarkBoundless100000(b *testing.B)  { benchmarkBoundless(100000, b) }
 func BenchmarkBoundless1000000(b *testing.B) { benchmarkBoundless(1000000, b) }
 
 func benchmarkBoundless(items int, b *testing.B) {
-	cache := NewBoundless[int]()
+	cache := NewBoundless[string, int]()
 	var m1, m2 runtime.MemStats
 
 	runtime.ReadMemStats(&m1)

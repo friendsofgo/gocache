@@ -12,7 +12,7 @@ func TestLRU(t *testing.T) {
 	key1, key2, key3, key4 := "key1", "key2", "key3", "key4"
 	val1, val2, val3, val4 := 1, 2, 3, 4
 
-	cache := NewLRU[int](2)
+	cache := NewLRU[string, int](2)
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 	cache.Set(key3, val3)
@@ -64,7 +64,7 @@ func BenchmarkLRU100000x100000(b *testing.B)  { benchmarkLRU(100000, 100000, b) 
 func BenchmarkLRU1000000x100000(b *testing.B) { benchmarkLRU(1000000, 100000, b) }
 
 func benchmarkLRU(items, size int, b *testing.B) {
-	cache := NewLRU[int](size)
+	cache := NewLRU[string, int](size)
 	var m1, m2 runtime.MemStats
 
 	runtime.ReadMemStats(&m1)
