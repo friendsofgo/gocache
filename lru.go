@@ -1,6 +1,9 @@
 package gocache
 
-import "sync"
+import (
+	"container/list"
+	"sync"
+)
 
 // LRU is an in-memory cache implementation
 // that uses the Least Recently Used (LRU)
@@ -8,18 +11,23 @@ import "sync"
 // Safe for concurrency.
 type LRU[V any] struct {
 	sync.RWMutex
-	items map[string]*listItem[V]
+	items map[string]*list.Element
 	cap   int
-	lru   *list[V]
+	lru   *list.List
+}
+
+type entry[V any] struct {
+	key string
+	val V
 }
 
 // NewLRU is a constructor method that initializes
 // a new LRU cache with a maximum capacity of cap.
 func NewLRU[V any](cap int) *LRU[V] {
 	return &LRU[V]{
-		items: make(map[string]*listItem[V]),
+		items: make(map[string]*list.Element),
 		cap:   cap,
-		lru:   new(list[V]),
+		lru:   list.New(),
 	}
 }
 
@@ -36,9 +44,8 @@ func (c *LRU[V]) Get(key string) V {
 		return noop
 	}
 
-	c.lru.update(item)
-
-	return item.val
+	c.lru.MoveToFront(item)
+	return item.Value.(*entry[V]).val
 }
 
 // Set updates the element stored for the given
@@ -50,19 +57,26 @@ func (c *LRU[V]) Set(key string, val V) {
 	c.Lock()
 	defer c.Unlock()
 
+	if item, ok := c.items[key]; ok {
+		c.lru.MoveToFront(item)
+		item.Value.(*entry[V]).val = val
+		return
+	}
+
 	if len(c.items) == c.cap {
 		c.evict()
 	}
 
-	newItem := &listItem[V]{key: key, val: val}
-	c.lru.prepend(newItem)
-	c.items[key] = newItem
+	newItem := &entry[V]{key: key, val: val}
+	element := c.lru.PushFront(newItem)
+	c.items[key] = element
 }
 
 func (c *LRU[V]) evict() {
-	evicted := c.lru.pop()
-
-	if evicted != nil {
-		delete(c.items, evicted.key)
+	item := c.lru.Back()
+	if item != nil {
+		c.lru.Remove(item)
+		kv := item.Value.(*entry[V])
+		delete(c.items, kv.key)
 	}
 }

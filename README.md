@@ -1,17 +1,13 @@
-## Gocache
+## gocache
 
 [![Status](https://github.com/friendsofgo/gocache/workflows/Build/badge.svg?branch=main&event=push)](https://github.com/friendsofgo/gocache/actions)
 [![GoDoc](https://pkg.go.dev/badge/pkg.friendsofgo.tech/gocache?status.svg)](https://pkg.go.dev/pkg.friendsofgo.tech/gocache)
 [![Go Report Card](https://goreportcard.com/badge/github.com/friendsofgo/gocache)](https://goreportcard.com/report/github.com/friendsofgo/gocache)
 [![FriendsOfGo](https://img.shields.io/badge/powered%20by-Friends%20of%20Go-73D7E2.svg)](https://friendsofgo.tech)
 
-<p>
-<a href="https://www.buymeacoffee.com/friendsofgo" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: 100px !important;" ></a>
-</p>
+**gocache** is a *generic* in-memory cache implementation written in Go.
 
-Gocache is a **generic** in-memory cache implementation written in Go.
-
-It requires Go v1.18+ due to the generics support.
+It requires Go v1.18+ due to the support for generics.
 
 ## Table of Contents
 
@@ -131,6 +127,3 @@ BenchmarkLRU100000x100000-8    	1000000000	         0.000001 ns/op
 BenchmarkLRU1000000x100000-8   	1000000000	         0.000001 ns/op
 ```
 
-#### Memory footprint
-
-![memory-footprint](images/memory_footprint_v1.png)
