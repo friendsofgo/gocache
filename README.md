@@ -58,7 +58,7 @@ func main() {
 	key1, key2 := "key1", "key2"
 	val1, val2 := 1, 2
 
-	cache := gocache.NewBoundless[int]()
+	cache := gocache.NewBoundless[string, int]()
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -81,7 +81,7 @@ func main() {
 	val1, val2 := 1, 2
 	size := 1
 
-	cache := gocache.NewLRU[int](size)
+	cache := gocache.NewLRU[string, int](size)
 	cache.Set(key1, val1)
 	cache.Set(key2, val2)
 
@@ -94,7 +94,7 @@ func main() {
 
 #### Time-cost - O(1)
 
-As you you can see on the attached benchmark logs, the lookup time-cost of both implementations corresponds to O(1).
+As you can see on the benchmark logs below, the lookup time-cost of both implementations corresponds to O(1).
 
 ```
 BenchmarkCache1-8                 	1000000000	         0.000000 ns/op
@@ -127,3 +127,8 @@ BenchmarkLRU100000x100000-8    	1000000000	         0.000001 ns/op
 BenchmarkLRU1000000x100000-8   	1000000000	         0.000001 ns/op
 ```
 
+### Future work
+
+- Modify the signature of `Get(key K) V` with `Get(key K) (V, bool)`.
+- Collect usage metrics: hits, misses, evictions, etc.
+- Add support for eviction callbacks.
